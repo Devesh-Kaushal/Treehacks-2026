@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Resonant CWPP | TreeHacks 2026
+
+**Winner of the "Most Impactful Community Tool" Category (Target)**
+
+A next-generation Community Wildfire Protection Plan (CWPP) platform that combines **Cultural Resonance** with **Real-Time Intelligence**.
+
+## Key Features
+
+### 1. Intelligence Layer
+- **Real-Time Risk Engine**: Integrates live weather data (NOAA/OpenWeatherMap) to calculate Fire Weather Index (FWI).
+- **Role-Based Command Centers**:
+  - **Residents**: Property hardening checklists and Defensible Space Scores.
+  - **First Responders**: Tactical maps, unit tracking, and vulnerable population data.
+  - **Youth**: Gamified "Junior Ranger" learning paths.
+  - **Access & Functional Needs**: One-tap priority assistance requests.
+
+### 2. Premium Experience
+- **Glassmorphism UI**: A modern, approachable aesthetic that builds trust.
+- **Scrollytelling**: A landing page that guides users through the narrative of community safety.
+- **Micro-animations**: Delightful interactions using Framer Motion.
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repo**:
+   ```bash
+   git clone https://github.com/Devesh-Kaushal/Treehacks-2026.git
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+4. **Open [http://localhost:3000](http://localhost:3000)**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS + Custom Design System
+- **Animation**: Framer Motion
+- **Icons**: Lucide React
