@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Trophy, Star, BookOpen, Flame } from "lucide-react";
+import { Trophy, Star, BookOpen } from "lucide-react";
 
-export function YouthDashboard({ user, weather, riskLevel }: any) {
+export function YouthDashboard() {
     return (
         <div className="space-y-6">
             <motion.div
@@ -30,7 +30,7 @@ export function YouthDashboard({ user, weather, riskLevel }: any) {
                 <div className="mt-8 bg-black/20 rounded-full h-4 overflow-hidden">
                     <div className="h-full bg-yellow-400 w-[90%] shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
                 </div>
-                <p className="mt-2 text-sm text-indigo-200 font-medium">50 XP until next rank: "Ember Watcher"</p>
+                <p className="mt-2 text-sm text-indigo-200 font-medium">50 XP until next rank: &quot;Ember Watcher&quot;</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -73,7 +73,14 @@ export function YouthDashboard({ user, weather, riskLevel }: any) {
     );
 }
 
-function MissionItem({ title, xp, bg, text }: any) {
+interface MissionItemProps {
+    title: string;
+    xp: number;
+    bg: string;
+    text: string;
+}
+
+function MissionItem({ title, xp, bg, text }: MissionItemProps) {
     return (
         <button className={`w-full flex items-center justify-between p-4 rounded-xl ${bg} ${text} font-bold hover:scale-[1.02] transition-transform`}>
             <span>{title}</span>

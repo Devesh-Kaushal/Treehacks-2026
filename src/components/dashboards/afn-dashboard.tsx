@@ -5,7 +5,8 @@ import { HeartHandshake, Phone, Pill, Battery, UserCheck } from "lucide-react";
 
 // Access & Functional Needs Dashboard
 // Design Goals: High contrast, large touch targets, simplified actions
-export function AFNDashboard({ user, weather, riskLevel }: any) {
+// AFN Dashboard
+export function AFNDashboard() {
     return (
         <div className="space-y-8">
             <motion.div
@@ -52,14 +53,14 @@ export function AFNDashboard({ user, weather, riskLevel }: any) {
             <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
                 <h3 className="font-bold text-blue-900 mb-2">Accessibility Note</h3>
                 <p className="text-blue-800">
-                    Your location is shared with Fire Dept Station 42 because you have marked "Mobility Assistance" in your profile.
+                    Your location is shared with Fire Dept Station 42 because you have marked &quot;Mobility Assistance&quot; in your profile.
                 </p>
             </div>
         </div>
     );
 }
 
-function StatusCard({ icon, label, value, status }: any) {
+function StatusCard({ icon, label, value, status }: { icon: React.ReactNode, label: string, value: string, status: "good" | "ok" | "warn" }) {
     const colors = {
         good: "bg-green-50 border-green-200 text-green-700",
         ok: "bg-blue-50 border-blue-200 text-blue-700",

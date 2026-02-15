@@ -6,12 +6,16 @@ export type UserProfileType =
     | "resident_general"
     | "resident_afn" // Access & Functional Needs
     | "first_responder"
-    | "youth_student";
+    | "youth_student"
+    | "homeowner"
+    | "renter";
 
 export interface User {
     id: string;
     name: string;
     email: string;
+    phone?: string;
+    city?: string;
     profileType: UserProfileType;
     location?: {
         lat: number;
@@ -19,6 +23,7 @@ export interface User {
         address?: string;
     };
     mobilityNeeds?: boolean;
+    resonanceContext?: "individual" | "community";
 }
 
 interface AuthContextType {
@@ -27,6 +32,7 @@ interface AuthContextType {
     login: (userData: User) => void;
     logout: () => void;
     updateLocation: (lat: number, lng: number) => void;
+    updateProfile: (updates: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -40,7 +46,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const stored = localStorage.getItem("cwpp_user");
         if (stored) {
             try {
-                setUser(JSON.parse(stored));
+                const parsed = JSON.parse(stored);
+                setUser(parsed); // eslint-disable-line react-hooks/set-state-in-effect
             } catch (e) {
                 console.error("Failed to parse user data", e);
             }
@@ -66,8 +73,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
     };
 
+    const updateProfile = (updates: Partial<User>) => {
+        if (user) {
+            const updatedUser = { ...user, ...updates };
+            setUser(updatedUser);
+            localStorage.setItem("cwpp_user", JSON.stringify(updatedUser));
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{ user, isLoading, login, logout, updateLocation }}>
+        <AuthContext.Provider value={{ user, isLoading, login, logout, updateLocation, updateProfile }}>
             {children}
         </AuthContext.Provider>
     );

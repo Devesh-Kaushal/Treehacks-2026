@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Shield, Home, CheckCircle2, AlertTriangle, CloudRain } from "lucide-react";
 
-export function ResidentDashboard({ user, weather, riskLevel }: any) {
+export function ResidentDashboard() {
     const [tasks, setTasks] = useState([
         { id: 1, title: "Clean Gutters", category: "Property", completed: false },
         { id: 2, title: "Update Emergency Contacts", category: "Family", completed: false },

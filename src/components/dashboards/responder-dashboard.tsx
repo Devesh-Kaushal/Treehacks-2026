@@ -1,33 +1,68 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Map, Radio, Users, Truck, AlertOctagon } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Radio, Users, Truck, Bell } from "lucide-react";
+import dynamic from "next/dynamic";
 
-export function ResponderDashboard({ user, weather, riskLevel }: any) {
+const InteractiveMap = dynamic(() => import("../interactive-map"), {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-gray-900 animate-pulse flex items-center justify-center text-gray-500 font-mono">Loading Tactical Map...</div>
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function ResponderDashboard({ user }: any) {
+    // Default to Palo Alto coordinates if user location unavailable
+    const center: [number, number] = [user?.location?.lat || 37.4419, user?.location?.lng || -122.1430];
+    const [alertSent, setAlertSent] = useState(false);
+
+    // Simulated live units
+    const markers: Array<{ pos: [number, number]; label: string }> = [
+        { pos: [37.42, -122.15], label: "Unit 42 (Active)" },
+        { pos: [center[0] + 0.01, center[1] - 0.01], label: "Hazard: Downed Line" }
+    ];
+
+    const handleDeploy = () => {
+        setAlertSent(true);
+        setTimeout(() => setAlertSent(false), 3000);
+    };
+
     return (
-        <div className="space-y-6">
-            {/* Tactical Map Placeholder */}
+        <div className="space-y-6 relative">
+            <AnimatePresence>
+                {alertSent && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20, x: "-50%" }}
+                        animate={{ opacity: 1, y: 0, x: "-50%" }}
+                        exit={{ opacity: 0 }}
+                        className="fixed top-24 left-1/2 z-[9999] bg-fire-600 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 font-bold border border-fire-400"
+                    >
+                        <Bell className="w-5 h-5 animate-bounce" />
+                        <span>ALERT BROADCAST SENT TO 142 RESIDENTS</span>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Tactical Map (Interactive) */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-gray-700 h-[400px] relative"
+                className="bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-gray-700 h-[400px] relative z-0"
             >
-                <div className="absolute inset-0 bg-[url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/-122.1,37.4,12,0/800x400?access_token=pk.eyJ1IjoidHJlZWhhY2tzIiwiYSI6ImNsZ3J6b3J6czBzbzEzZXB5eXJ6b3J6czAifQ.placeholder')] bg-cover bg-center opacity-50" />
-
-                <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-4 py-2 rounded-lg border border-gray-700 text-xs font-mono text-green-400">
+                <div className="absolute top-4 left-4 z-[400] bg-black/80 backdrop-blur-md px-4 py-2 rounded-lg border border-gray-700 text-xs font-mono text-green-400 pointer-events-none">
                     LIVE FEED • SECTOR 4 • ASSETS DEPLOYED
                 </div>
 
-                {/* Simulated Map Markers */}
-                <div className="absolute top-1/2 left-1/3 w-4 h-4 bg-red-500 rounded-full animate-ping" />
-                <div className="absolute top-1/2 left-1/3 w-4 h-4 bg-red-500 rounded-full border-2 border-white shadow-[0_0_20px_rgba(239,68,68,0.8)]" />
+                <div className="w-full h-full filter invert-[.9] hue-rotate-180 contrast-125">
+                    {/* CSS Filter hack to make OSM look "Dark Mode" / Tactical */}
+                    <InteractiveMap center={center} markers={markers} />
+                </div>
 
-                <div className="absolute bottom-1/3 right-1/4 w-3 h-3 bg-blue-500 rounded-full border border-white" />
-                <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-blue-500 rounded-full border border-white" />
-
-                <div className="absolute bottom-6 right-6 flex gap-2">
-                    <button className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-xs font-bold border border-gray-600">LAYERS</button>
-                    <button className="bg-fire-600 hover:bg-fire-500 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-lg animate-pulse">DEPLOY UNIT</button>
+                <div className="absolute bottom-6 right-6 z-[400] flex gap-2">
+                    <button className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-xs font-bold border border-gray-600 shadow-lg">LAYERS</button>
+                    <button onClick={handleDeploy} className="bg-fire-600 hover:bg-fire-500 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-lg animate-pulse active:scale-95 transition-transform">
+                        DEPLOY UNIT & ALERT
+                    </button>
                 </div>
             </motion.div>
 

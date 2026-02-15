@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, Circle, Shield, TreePine, Users, Zap, Trophy, X } from "lucide-react";
+import { CheckCircle2, Shield, TreePine, Users, Zap, Trophy } from "lucide-react";
 import clsx from "clsx";
 
 type ActionItem = {
@@ -79,6 +79,7 @@ export function ActionPlan() {
 
     useEffect(() => {
         if (progress === 100) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setShowConfetti(true);
             setTimeout(() => setShowConfetti(false), 4000);
         }

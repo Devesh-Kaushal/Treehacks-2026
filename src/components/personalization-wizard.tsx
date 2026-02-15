@@ -2,31 +2,39 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Building2, Shield, Users, X, Sparkles, ArrowRight } from "lucide-react";
-import clsx from "clsx";
-
-type Profile = "homeowner" | "renter" | null;
-type Context = "individual" | "community" | null;
+import { Home, Building2, Shield, Users, X, Sparkles } from "lucide-react";
+import { useAuth, UserProfileType } from "@/lib/auth-context";
 
 export function PersonalizationWizard() {
+    const { updateProfile } = useAuth();
     const [step, setStep] = useState(1);
-    const [profile, setProfile] = useState<Profile>(null);
-    const [context, setContext] = useState<Context>(null);
+    const [profile, setProfile] = useState<UserProfileType | null>(null);
+    const [context, setContext] = useState<"individual" | "community" | null>(null);
     const [isOpen, setIsOpen] = useState(false);
 
     const openWizard = () => setIsOpen(true);
     const closeWizard = () => setIsOpen(false);
 
-    const handleProfileSelect = (p: Profile) => {
+    const handleProfileSelect = (p: UserProfileType) => {
         setProfile(p);
         setStep(2);
     };
 
-    const handleContextSelect = (c: Context) => {
+    const handleContextSelect = (c: "individual" | "community") => {
         setContext(c);
         setStep(3);
+
+        // Persist to Auth Context
+        if (profile) {
+            updateProfile({
+                profileType: profile,
+                resonanceContext: c
+            });
+        }
+
         setTimeout(() => {
             closeWizard();
+            setStep(1); // Reset for next time
         }, 2000);
     };
 

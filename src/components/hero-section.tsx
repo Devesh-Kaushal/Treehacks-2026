@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ChevronDown, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export function HeroSection() {
     const ref = useRef(null);
@@ -22,10 +23,12 @@ export function HeroSection() {
                 className="absolute inset-0 z-0"
             >
                 <div className="absolute inset-0 bg-gradient-to-b from-forest-900/30 via-forest-900/60 to-forest-900 z-10" />
-                <img
+                <Image
                     src="https://images.unsplash.com/photo-1543328328-9f170af31648?q=80&w=2670&auto=format&fit=crop"
                     alt="California Wilderness"
-                    className="w-full h-full object-cover scale-110"
+                    fill
+                    className="object-cover scale-110"
+                    priority
                 />
             </motion.div>
 
@@ -42,24 +45,24 @@ export function HeroSection() {
                 </motion.div>
 
                 <motion.h1
-                    className="text-6xl md:text-8xl font-display font-bold leading-tight mb-8"
+                    className="text-5xl md:text-7xl font-display font-black mb-6 leading-tight"
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                 >
-                    Protect Your Home. <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-fire-400 to-amber-200">
-                        Preserve Our Future.
+                    Wildfire Safety, <br />
+                    <span className="bg-gradient-to-r from-fire-400 via-fire-500 to-amber-500 bg-clip-text text-transparent italic">
+                        Personaly Resonant.
                     </span>
                 </motion.h1>
 
                 <motion.p
-                    className="text-xl md:text-2xl text-sand-50/80 max-w-2xl mx-auto font-light leading-relaxed mb-12"
+                    className="text-xl md:text-2xl text-sand-200 mb-12 max-w-2xl mx-auto leading-relaxed"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.4 }}
                 >
-                    Wildfire resilience starts with you. Discover a personalized, culturally-aware plan to safeguard your family and community.
+                    Most wildfire plans are technical PDFs. We built a living platform that adapts to <span className="text-white font-bold">your</span> home, <span className="text-white font-bold">your</span> family, and <span className="text-white font-bold">your</span> neighborhood.
                 </motion.p>
 
                 <motion.div

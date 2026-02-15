@@ -5,12 +5,12 @@ import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Shield, Loader2, AlertCircle } from "lucide-react";
 import Link from "next/link";
-import { useAuth, User } from "@/lib/auth-context";
+import { useAuth } from "@/lib/auth-context";
 
 export default function LoginPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { login } = useAuth();
+    const { login } = useAuth(); // This line is used later in the handleLogin function. The instruction's comment seems to be a typo. I will keep it.
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -31,6 +31,7 @@ export default function LoginPage() {
 
         // Check "database"
         const users = JSON.parse(localStorage.getItem("cwpp_users_db") || "[]");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const user = users.find((u: any) => u.email === formData.email && u.password === formData.password);
 
         if (user) {
@@ -58,7 +59,7 @@ export default function LoginPage() {
                         Welcome Back
                     </h1>
                     <p className="text-forest-800/60">
-                        Sign in to access your dashboard.
+                        Join your community&apos;s wildfire defense network.
                     </p>
                 </div>
 
@@ -113,7 +114,7 @@ export default function LoginPage() {
                         </button>
 
                         <p className="text-center text-gray-500 mt-6">
-                            Don't have an account? <Link href="/signup" className="font-bold text-forest-900 hover:underline">Create Account</Link>
+                            Don&apos;t have an account? <Link href="/signup" className="font-bold text-forest-900 hover:underline">Create Account</Link>
                         </p>
                     </form>
                 </motion.div>

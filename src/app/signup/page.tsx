@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { Shield, ArrowRight, Loader2 } from "lucide-react";
+import { Shield, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useAuth, UserProfileType, User } from "@/lib/auth-context";
+import { UserProfileType, User } from "@/lib/auth-context";
 
 export default function SignupPage() {
     const router = useRouter();
-    const { login } = useAuth(); // We'll manually handle login redirect after signup
+    // const { login } = useAuth(); // We'll manually handle login redirect after signup
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -69,7 +69,7 @@ export default function SignupPage() {
                         Create Account
                     </h1>
                     <p className="text-forest-800/60">
-                        Join your community's wildfire defense network.
+                        Join your community&apos;s wildfire defense network.
                     </p>
                 </div>
 
